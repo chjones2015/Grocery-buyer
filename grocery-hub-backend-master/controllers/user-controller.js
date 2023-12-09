@@ -10,7 +10,7 @@ const signup = async (req, res) => {
 
     // Validate user input
     if (!(email && password && firstName)) {
-      res.status(400).send({ error: "All input is required" });
+      return res.status(400).send({ error: "All input is required" });
     }
 
     // Check if user already exist
@@ -55,7 +55,7 @@ const signup = async (req, res) => {
       message: "User created successfully",
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -66,7 +66,7 @@ const login = async (req, res) => {
 
     // Validate user input
     if (!(email && password)) {
-      res.status(400).send({ error: "All input is required" });
+      return res.status(400).send({ error: "All input is required" });
     }
 
     // Validate if user exist in our database
@@ -97,7 +97,7 @@ const login = async (req, res) => {
     // If user does not exist or password is incorrect return error
     return res.status(400).send({ error: "Invalid credentials" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -113,7 +113,7 @@ const getUser = async (req, res) => {
     // return user
     return res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -153,7 +153,7 @@ const updateUser = async (req, res) => {
       message: "User updated successfully",
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 

@@ -3,11 +3,11 @@ const Product = require("../models/product-model");
 const addProduct = async (req, res) => {
   try {
     // Get user input
-    const { name, price, description, image } = req.body;
+    const { name, price, description } = req.body;
 
     // Validate user input
-    if (!(name && price && description && image)) {
-      res.status(400).send({ error: "All input is required" });
+    if (!(name && price && description)) {
+      return res.status(400).send({ error: "All input is required" });
     }
 
     // Create new product
@@ -15,7 +15,7 @@ const addProduct = async (req, res) => {
       name,
       price,
       description,
-      image,
+      image: "/public/" + req.file.filename,
       userId: req.user.id,
     });
 
@@ -25,7 +25,7 @@ const addProduct = async (req, res) => {
       message: "Product created successfully",
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -37,7 +37,7 @@ const getAllProducts = async (req, res) => {
     // return products
     return res.status(200).json({ products });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 

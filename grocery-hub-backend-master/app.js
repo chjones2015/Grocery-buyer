@@ -19,6 +19,8 @@ app.use(cors());
 // set the limit of the request body size
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+// setting the static folder for the public folder to be accessible
+app.use("/api/public", express.static("public"));
 
 // route to check if the api is running
 app.get("/", (req, res) => {
@@ -28,6 +30,9 @@ app.get("/", (req, res) => {
 // using the routes
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
+
+//serve static assets if in production
+app;
 
 // starting the server
 app.listen(PORT, () => {
